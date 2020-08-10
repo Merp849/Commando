@@ -182,7 +182,7 @@ class Argument {
                         const embed = new Discord.MessageEmbed()
                          .setColor("RANDOM")
       
-                         .setDescription(`${empty ? this.promp : valid ? valid : `You provided an invalid ${this.label}. Please try again.`}
+                         .setDescription(`${empty ? this.prompt : valid ? valid : `You provided an invalid ${this.label}. Please try again.`}
                          
                           Respon with \`cancel\` to cancel the command.
                           ${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}`)
