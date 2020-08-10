@@ -1,6 +1,7 @@
-const { escapeMarkdown, MessageEmbed } = require('discord.js');
+const { escapeMarkdown } = require('discord.js');
 const { oneLine, stripIndents } = require('common-tags');
 const ArgumentUnionType = require('../types/union');
+const Discord = require ('discord.js')
 
 /** A fancy argument */
 class Argument {
@@ -177,14 +178,26 @@ class Argument {
 				};
 			}
 
-			// Prompt the user for a new value
-			prompts.push(await msg.reply(stripIndents`
-				${empty ? this.prompt : valid ? valid : `You provided an invalid ${this.label}. Please try again.`}
+
+                        const embed = new Discord.MessageEmbed()
+                         .setColor("RANDOM")
+      
+                         .setDescription(`${empty ? this.prompt : valid ? valid : `You provided an invalid ${this.label}. Please try again.`}
+                         
+                          Respon with \`cancel\` to cancel the command.
+                          ${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}`)
+                         
+	   		// Prompt the user for a new value
+                        prompts.push(await msg.channel.send(embed))
+
+
+			/*prompts.push(await msg.reply(stripIndents`
+		   		${empty ? this.prompt : valid ? valid : `You provided an invalid ${this.label}. Please try again.`}
 				${oneLine`
 					Respond with \`cancel\` to cancel the command.
 					${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}
 				`}
-			`));
+			`));*/
 
 			// Get the user's response
 			const responses = await msg.channel.awaitMessages(msg2 => msg2.author.id === msg.author.id, {
@@ -262,9 +275,23 @@ class Argument {
 
 				// Prompt the user for a new value
 				if(val) {
+                                  const hj = new Discord.MessageEmbed()
+.setColor("RANDOM")
+. setDescription (`${valid ? valid : `You provided an invalid ${this.label},
+"${escaped.length < 1850 ? escaped : '[too long to show]'}".
+Please try again.`}
+
+Respond with \`cancel\` to cancel the command, or \`finish\` to finish entry up to this point.
+${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}`)
+
+
+
 					const escaped = escapeMarkdown(val).replace(/@/g, '@\u200b');
-					prompts.push(await msg.reply(stripIndents`
-						${valid ? valid : oneLine`
+					prompts.push(await msg.channel.send(hj))
+                                              /*   embed: {
+                                                color: ("RANDOM"),
+
+					         description: `${valid ? valid : oneLine`
 							You provided an invalid ${this.label},
 							"${escaped.length < 1850 ? escaped : '[too long to show]'}".
 							Please try again.
@@ -272,16 +299,19 @@ class Argument {
 						${oneLine`
 							Respond with \`cancel\` to cancel the command, or \`finish\` to finish entry up to this point.
 							${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}
-						`}
-					`));
+						`}`
+}
+					})*/
 				} else if(results.length === 0) {
-					prompts.push(await msg.reply(stripIndents`
-						${this.prompt}
-						${oneLine`
-							Respond with \`cancel\` to cancel the command, or \`finish\` to finish entry.
-							${wait ? `The command will automatically be cancelled in ${this.wait} seconds, unless you respond.` : ''}
-						`}
-					`));
+          
+          const ju = new Discord.MessageEmbed()
+          .setColor(`RANDOM`)
+          .setDescription(`${this.prompt}
+
+         Respon with \`cancel\` to cancel the command, or \`finish\` to finish entry.
+         ${wait ? `The command will automatically be cancelled in ${this.wait} seconds, unless you respond.` : ''}`)
+          
+					prompts.push(await msg.channel.send(ju))
 				}
 
 				// Get the user's response
