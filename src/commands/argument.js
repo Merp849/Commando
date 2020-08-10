@@ -282,7 +282,7 @@ class Argument {
 Please try again.`}
 
 Respond with \`cancel\` to cancel the command, or \`finish\` to finish entry up to this point.
-${wait ? `The command will automatically be cancelled in {this.wait} seconds.` : ''}`)
+${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}`)
 
 
 
