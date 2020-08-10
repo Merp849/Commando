@@ -275,9 +275,20 @@ class Argument {
 
 				// Prompt the user for a new value
 				if(val) {
+                                  const hj = new Discord.MessageEmbed()
+.setColor("RANDOM")
+. setDescription (`${valid ? valid : `You provided an invalid ${this.label},
+"${escaped.length < 1850 ? escaped : '[too long to show]'}".
+Please try again.`}
+
+Respond with \`cancel\` to cancel the command, or \`finish\` to finish entry up to this point.
+${wait ? `The command will automatically be cancelled in {this.wait} seconds.` : ''}`)
+
+
+
 					const escaped = escapeMarkdown(val).replace(/@/g, '@\u200b');
-					prompts.push(await msg.channel.send({
-                                                 embed: {
+					prompts.push(await msg.channel.send(hj))
+                                              /*   embed: {
                                                 color: ("RANDOM"),
 
 					         description: `${valid ? valid : oneLine`
@@ -290,15 +301,17 @@ class Argument {
 							${wait ? `The command will automatically be cancelled in ${this.wait} seconds.` : ''}
 						`}`
 }
-					})
+					})*/
 				} else if(results.length === 0) {
-					prompts.push(await msg.reply(stripIndents`
-						${this.prompt}
-						${oneLine`
-							Respond with \`cancel\` to cancel the command, or \`finish\` to finish entry.
-							${wait ? `The command will automatically be cancelled in ${this.wait} seconds, unless you respond.` : ''}
-						`}
-					`));
+          
+          const ju = new Discord.MessageEmbed()
+          .setColor(`RANDOM`)
+          .setDescription(`${this.prompt}
+
+         Respon with \`cancel\` to cancel the command, or \`finish\` to finish entry.
+         ${wait ? `The command will automatically be cancelled in ${this.wait} seconds, unless you respond.` : ''}`)
+          
+					prompts.push(await msg.channel.send(ju))
 				}
 
 				// Get the user's response
